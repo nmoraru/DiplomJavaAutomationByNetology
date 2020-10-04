@@ -91,7 +91,7 @@ spring.datasource.username=app
 spring.datasource.password=pass
 
 
-Все команды выполняются в терминале проекта в IntelliJ IDEA
+#### Все команды выполняются в терминале проекта в IntelliJ IDEA
 
 1. Запустить docker-контейнер командой 
 `docker-compose up`
