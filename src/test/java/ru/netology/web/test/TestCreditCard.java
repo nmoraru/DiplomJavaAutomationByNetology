@@ -55,8 +55,6 @@ public class TestCreditCard {
         Thread.sleep(10000);
         assertEquals("APPROVED", searchOperationStatusByCreditCard());
         assertNotNull(searchOperationByOrderTableForCreditCard());
-
-        // TODO: 05.10.2020 Оформить баг - запись о покупке в таблице order_entity пишется по ошибке в колонку для дебетовой карты 
     }
 
     @Test

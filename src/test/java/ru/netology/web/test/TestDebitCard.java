@@ -106,8 +106,6 @@ public class TestDebitCard {
         debitOrder.PaymentByCard(invalidDebitCard);
 
         debitOrder.errorPaymentMessage();
-        // TODO: 29.09.2020 Завести баг:
-        //  При оплате некорректной картой неправильное сообщение - пишет что успех операции (в БД без ошибки, корректный статус).
     }
 
     @Test
@@ -146,7 +144,6 @@ public class TestDebitCard {
         debitOrder.PaymentByCard(invalidDebitCard);
 
         debitOrder.errorMessageByEmptyField();
-        // TODO: 29.09.2020 Завести баг - некорректное сообщение для ошибки, пишется как для некорректного формата.
     }
 
     @Test
@@ -209,7 +206,6 @@ public class TestDebitCard {
         debitOrder.PaymentByCard(invalidDebitCard);
 
         debitOrder.errorMessageByEmptyField();
-        // TODO: 29.09.2020 Написать баг - некорректное сообщение о пустом поле
     }
 
     @Test
@@ -222,7 +218,6 @@ public class TestDebitCard {
         debitOrder.PaymentByCard(invalidDebitCard);
 
         debitOrder.errorMessageByFieldIncorrectFormat();
-        // TODO: 29.09.2020 Написать баг - можно указать 00 в месяце и заявка подается успешно
     }
 
     @Test
@@ -320,7 +315,6 @@ public class TestDebitCard {
         val invalidDebitCard = generateCardWithEmptyYearField();
         debitOrder.PaymentByCard(invalidDebitCard);
         debitOrder.errorMessageByEmptyField();
-        // TODO: 29.09.2020 Написать баг - некорректное сообщение о пустом поле
     }
 
     @Test
@@ -358,7 +352,6 @@ public class TestDebitCard {
             debitOrder.successfulPaymentMessage();
         } else
             debitOrder.errorMessageByOldYear();
-        // TODO: 29.09.2020 Завести баг, что есть ограничение на год - не больше 2025.
     }
 
     @Test
@@ -416,8 +409,6 @@ public class TestDebitCard {
         val debitCard = generateCardWithOwnerUpperMax31Symbols();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
-        // TODO: 29.09.2020 Написать баг - нет проверки на максимальное имя и фамилию (взял 30 символов).
-        //  Иначе можно отправить неограниченное количество символов, несколько миллионов например, и положить сервис.
     }
 
     @Test
@@ -429,7 +420,6 @@ public class TestDebitCard {
         val debitCard = generateCardWithOwnerByLowerCase();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
-        // TODO: 29.09.2020 Написать баг - нет проверки на регистр
     }
 
     @Test
@@ -441,7 +431,6 @@ public class TestDebitCard {
         val debitCard = generateCardWithOwnerByUpperCase();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
-        // TODO: 29.09.2020 Написать баг - нет проверки на регистр
     }
 
     @Test
@@ -453,7 +442,6 @@ public class TestDebitCard {
         val debitCard = generateCardWithFullName("ru");
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
-        // TODO: 29.09.2020 Написать баг - нет проверки на язык ввода
     }
 
     @Test
@@ -465,7 +453,6 @@ public class TestDebitCard {
         val debitCard = generateCardWithFullName("zh-CN");
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
-        // TODO: 29.09.2020 Написать баг - нет проверки на язык ввода
     }
 
     @Test
@@ -477,7 +464,6 @@ public class TestDebitCard {
         val debitCard = generateCardWithFullName("ar");
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
-        // TODO: 29.09.2020 Написать баг - нет проверки на язык ввода
     }
 
     @Test
@@ -489,7 +475,6 @@ public class TestDebitCard {
         val debitCard = generateCardWithNumericOwner();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
-        // TODO: 29.09.2020 Написать баг - нет проверки на ввод цифр
     }
 
     @Test
@@ -501,7 +486,6 @@ public class TestDebitCard {
         val debitCard = generateCardWithOwnerBySpacesBeforeText();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
-        // TODO: 29.09.2020 Написать баг - нет проверки на ввод лишних пробелов
     }
 
     @Test
@@ -513,7 +497,6 @@ public class TestDebitCard {
         val debitCard = generateCardWithOwnerBySpacesAfterText();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
-        // TODO: 29.09.2020 Написать баг - нет проверки на ввод лишних пробелов
     }
 
     @Test
@@ -525,7 +508,6 @@ public class TestDebitCard {
         val debitCard = generateCardWithOwnerByMoreSpacesBetweenNameAndSurname();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
-        // TODO: 29.09.2020 Написать баг - нет проверки на ввод лишних пробелов
     }
 
     @Test
@@ -537,7 +519,6 @@ public class TestDebitCard {
         val debitCard = generateCardWithOwnerByHyphenInStartName();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
-        // TODO: 29.09.2020 Написать баг - нет проверки на ввод лишних тирешек
     }
 
     @Test
@@ -549,7 +530,6 @@ public class TestDebitCard {
         val debitCard = generateCardWithOwnerByHyphenInFinishName();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
-        // TODO: 29.09.2020 Написать баг - нет проверки на ввод лишних тирешек
     }
 
     // Негативные тест-кейсы на поле "CVC/CVV"
@@ -563,8 +543,6 @@ public class TestDebitCard {
         val invalidDebitCard = generateCardWithEmptyCVCField();
         debitOrder.PaymentByCard(invalidDebitCard);
         debitOrder.errorMessageByEmptyField();
-        // TODO: 29.09.2020 Написать баг - некорректное сообщение о пустом поле для владельца (проблема -
-        //  как отследить в АТ другие сообщения об ошибках)
     }
 
     @Test
