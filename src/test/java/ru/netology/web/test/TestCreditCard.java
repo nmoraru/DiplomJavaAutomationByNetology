@@ -3,10 +3,8 @@ package ru.netology.web.test;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import lombok.val;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.testng.annotations.BeforeTest;
 import ru.netology.web.page.TitlePage;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -30,14 +28,17 @@ public class TestCreditCard {
         cleanData();
     }
 
+    @BeforeTest
+    public void openCreditPaymentPage() {
+        val titlePage = open("http://localhost:8080", TitlePage.class);
+        val creditOrder = titlePage.creditCardPayment();
+        creditOrder.isVisibleCreditCard();
+    }
+
     // Позитивные тест-кейсы
 
     @Test
     void shouldPaymentByValidCreditCard() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val creditOrder = titlePage.creditCardPayment();
-        creditOrder.isVisibleCreditCard();
-
         val validCreditCard = generateValidCard();
         creditOrder.PaymentByCard(validCreditCard);
         creditOrder.successfulPaymentMessage();

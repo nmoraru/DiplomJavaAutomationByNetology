@@ -19,8 +19,9 @@ public class DataGenerator {
     DataGenerator() {
     }
 
-    // Позитивные тест-кейсы. Проверяем граничные значения на всех полях.
+    // Данные для позитивных тест-кейсов.
 
+    // Проверяем граничные значения на всех полях.
     public static CardInfo generateValidCard() {
         CardInfo validCard = new CardInfo(
                 "4444444444444441",
@@ -66,7 +67,7 @@ public class DataGenerator {
         return invalidCard;
     }
 
-    // Негативные тест-кейсы на поле "Номер карты"
+    // Данные для негативных тест-кейсов на поле "Номер карты"
 
     public static CardInfo generateExistInvalidCardNumberForDeclinedOperation() {
         CardInfo invalidCard = new CardInfo(
@@ -145,7 +146,7 @@ public class DataGenerator {
         return invalidCard;
     }
 
-    // Негативные тест-кейсы на поле "Месяц"
+    // Данные для негативных тест-кейсов на поле "Месяц"
 
     public static CardInfo generateCardWithEmptyMonthField() {
         CardInfo invalidCard = new CardInfo(
@@ -247,7 +248,7 @@ public class DataGenerator {
         return invalidCard;
     }
 
-    // Негативные тест-кейсы на поле "Год"
+    // Данные для негативных тест-кейсов на поле "Год"
 
     public static CardInfo generateCardWithEmptyYearField() {
         CardInfo invalidCard = new CardInfo(
@@ -326,7 +327,7 @@ public class DataGenerator {
         return invalidCard;
     }
 
-    // Негативные тест-кейсы на поле "Владелец"
+    // Данные для негативных тест-кейсов на поле "Владелец"
 
     public static CardInfo generateCardWithEmptyOwnerField() {
         CardInfo invalidCard = new CardInfo(
@@ -449,7 +450,7 @@ public class DataGenerator {
         return invalidCard;
     }
 
-    // Негативные тест-кейсы на поле "CVC/CVV"
+    // Данные для негативных тест-кейсов на поле "CVC/CVV"
 
     public static CardInfo generateCardWithEmptyCVCField() {
         CardInfo invalidCard = new CardInfo(
