@@ -19,7 +19,7 @@ install:
   - java -jar ./artifacts/aqa-shop.jar &
   - sleep 15
   - cd gate-simulator &
-  - npm start
+  - npm start &
 
 build_script:
   - chmod +x gradlew

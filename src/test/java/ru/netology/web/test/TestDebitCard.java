@@ -7,6 +7,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.testng.annotations.BeforeTest;
+import ru.netology.web.page.CardPage;
 import ru.netology.web.page.TitlePage;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -15,6 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static ru.netology.web.data.DataGenerator.*;
 
 public class TestDebitCard {
+    TitlePage titlePage = open("http://localhost:8080", TitlePage.class);
+    CardPage debitOrder = titlePage.debitCardPayment();
+
     @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
@@ -30,14 +35,15 @@ public class TestDebitCard {
         cleanData();
     }
 
+    @BeforeTest
+    public void openCreditPaymentPage() {
+        debitOrder.isVisibleCreditCard();
+    }
+
     // Позитивные тест-кейсы
 
     @Test
     void shouldPaymentByValidDebitCard() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val validDebitCard = generateValidCard();
         debitOrder.PaymentByCard(validDebitCard);
 
@@ -46,10 +52,6 @@ public class TestDebitCard {
 
     @Test
     void shouldWriteToDataBaseApprovedPaymentByDebitCard() throws InterruptedException {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val validDebitCard = generateValidCard();
         debitOrder.PaymentByCard(validDebitCard);
 
@@ -60,10 +62,6 @@ public class TestDebitCard {
 
     @Test
     void shouldPaymentByValidDebitCardWithMaxValidCardOwner() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val validDebitCard = generateValidCardWithMaxValidCardOwner();
         debitOrder.PaymentByCard(validDebitCard);
 
@@ -72,10 +70,6 @@ public class TestDebitCard {
 
     @Test
     void shouldPaymentByValidDebitCardWithMinValidCardOwner() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val validDebitCard = generateValidCardWithMinValidCardOwner();
         debitOrder.PaymentByCard(validDebitCard);
 
@@ -84,10 +78,6 @@ public class TestDebitCard {
 
     @Test
     void shouldPaymentByCardWithOwnerByDoubleSurname() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithOwnerByDoubleSurname();
         debitOrder.PaymentByCard(debitCard);
 
@@ -98,10 +88,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithExistIncorrectNumber() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateExistInvalidCardNumberForDeclinedOperation();
         debitOrder.PaymentByCard(invalidDebitCard);
 
@@ -110,10 +96,6 @@ public class TestDebitCard {
 
     @Test
     void shouldWriteToDataBaseDeclinedPaymentByDebitCard() throws InterruptedException {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateExistInvalidCardNumberForDeclinedOperation();
         debitOrder.PaymentByCard(invalidDebitCard);
 
@@ -124,10 +106,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithNotExistNumber() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateNoExistCardNumberForDeclinedOperation();
         debitOrder.PaymentByCard(invalidDebitCard);
 
@@ -136,10 +114,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithEmptyNumber() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateCardWithEmptyNumberField();
         debitOrder.PaymentByCard(invalidDebitCard);
 
@@ -148,10 +122,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithNoFullNumber() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithNoFullNumber();
         debitOrder.PaymentByCard(debitCard);
 
@@ -160,10 +130,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithWordInNumber() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithWordInNumber();
         debitOrder.PaymentByCard(debitCard);
 
@@ -172,10 +138,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithSpecialCharacterInNumber() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithSpecialCharacterInNumber();
         debitOrder.PaymentByCard(debitCard);
 
@@ -184,10 +146,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithSpacesInNumber() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithSpaceInNumber();
         debitOrder.PaymentByCard(debitCard);
 
@@ -198,10 +156,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithEmptyMonth() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateCardWithEmptyMonthField();
         debitOrder.PaymentByCard(invalidDebitCard);
 
@@ -210,10 +164,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithMonthUnderMin() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateCardWithMonthUnderMin();
         debitOrder.PaymentByCard(invalidDebitCard);
 
@@ -222,10 +172,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOneNumInMonth() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateCardWithOneNumInMonth();
         debitOrder.PaymentByCard(invalidDebitCard);
 
@@ -234,10 +180,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithThreeNumInMonth() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateCardWithThreeNumInMonth();
         debitOrder.PaymentByCard(invalidDebitCard);
 
@@ -250,10 +192,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithMonthUpperMax() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateCardWithMonthUpperMax();
         debitOrder.PaymentByCard(invalidDebitCard);
 
@@ -262,10 +200,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithWordInMonth() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithWordInNumber();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByEmptyField();
@@ -273,10 +207,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithSpecialCharacterInMonth() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithSpecialCharacterInMonth();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByEmptyField();
@@ -284,10 +214,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithSpacesInMonth() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithSpaceInMonth();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -295,10 +221,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOldMonth() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateCardWithOldMonth();
         debitOrder.PaymentByCard(invalidDebitCard);
         debitOrder.errorMessageByIncorrectFormatMonthField();
@@ -308,10 +230,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithEmptyYear() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateCardWithEmptyYearField();
         debitOrder.PaymentByCard(invalidDebitCard);
         debitOrder.errorMessageByEmptyField();
@@ -319,10 +237,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOldYear() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateCardWithOldYear();
         debitOrder.PaymentByCard(invalidDebitCard);
         debitOrder.errorMessageByOldYear();
@@ -330,10 +244,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOneNumInYear() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateCardWithOneNumInYear();
         debitOrder.PaymentByCard(invalidDebitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -341,10 +251,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithThreeNumInYear() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateCardWithThreeNumInYear();
         debitOrder.PaymentByCard(invalidDebitCard);
 
@@ -356,10 +262,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithWordInYear() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithWordInYear();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByEmptyField();
@@ -367,10 +269,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithSpecialCharacterInYear() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithSpecialCharacterInYear();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByEmptyField();
@@ -378,10 +276,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithSpacesInYear() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithSpaceInYear();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -391,10 +285,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithEmptyOwner() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithEmptyOwnerField();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByEmptyField();
@@ -402,10 +292,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOwnerUpperMax() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithOwnerUpperMax31Symbols();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -413,10 +299,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOwnerByLowerCase() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithOwnerByLowerCase();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -424,10 +306,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOwnerByUpperCase() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithOwnerByUpperCase();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -435,10 +313,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOwnerByRusName() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithFullName("ru");
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -446,10 +320,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOwnerCnName() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithFullName("zh-CN");
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -457,10 +327,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOwnerArabicName() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithFullName("ar");
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -468,10 +334,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithNumericOwner() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithNumericOwner();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -479,10 +341,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOwnerBySpacesBeforeText() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithOwnerBySpacesBeforeText();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -490,10 +348,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOwnerBySpacesAfterText() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithOwnerBySpacesAfterText();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -501,10 +355,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOwnerByMoreSpacesBetweenNameAndSurname() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithOwnerByMoreSpacesBetweenNameAndSurname();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -512,10 +362,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOwnerByHyphenInStartName() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithOwnerByHyphenInStartName();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -523,10 +369,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOwnerByHyphenInFinishName() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithOwnerByHyphenInFinishName();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -536,10 +378,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithEmptyCVC() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateCardWithEmptyCVCField();
         debitOrder.PaymentByCard(invalidDebitCard);
         debitOrder.errorMessageByEmptyField();
@@ -547,10 +385,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithOneNumInCVC() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateCardWithOneNumInCVC();
         debitOrder.PaymentByCard(invalidDebitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -558,10 +392,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithTwoNumInCVC() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val invalidDebitCard = generateCardWithTwoNumInCVC();
         debitOrder.PaymentByCard(invalidDebitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
@@ -569,10 +399,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithWordInCVC() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithWordInCVC();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByEmptyField();
@@ -580,10 +406,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithSpecialCharacterInCVC() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithSpecialCharacterInCVC();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByEmptyField();
@@ -591,10 +413,6 @@ public class TestDebitCard {
 
     @Test
     void shouldDeclinedPaymentByCardWithSpacesInCVC() {
-        val titlePage = open("http://localhost:8080", TitlePage.class);
-        val debitOrder = titlePage.debitCardPayment();
-        debitOrder.isVisibleDebitCard();
-
         val debitCard = generateCardWithSpaceInCVC();
         debitOrder.PaymentByCard(debitCard);
         debitOrder.errorMessageByFieldIncorrectFormat();
