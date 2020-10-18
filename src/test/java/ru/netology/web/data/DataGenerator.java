@@ -2,11 +2,7 @@ package ru.netology.web.data;
 
 import com.github.javafaker.Faker;
 import lombok.Data;
-import lombok.val;
-import org.apache.commons.dbutils.QueryRunner;
 
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -705,96 +701,6 @@ public class DataGenerator {
         Faker faker = new Faker(new Locale("ru"));
         int month = faker.random().nextInt(13, 99);
         return Integer.toString(month);
-    }
-
-    public static void cleanData() {
-        val runner = new QueryRunner();
-        val creditPayment = "DELETE FROM credit_request_entity";
-        val order = "DELETE FROM order_entity";
-        val debitPayment = "DELETE FROM payment_entity";
-
-        try {
-            val connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/app", "app", "pass");
-            runner.update(connection, creditPayment);
-            runner.update(connection, order);
-            runner.update(connection, debitPayment);
-
-        } catch (SQLException ex) {
-            System.out.println("SQLException message:" + ex.getMessage());
-        }
-    }
-
-    public static String searchOperationStatusByDebitCard() {
-        val selectStatus = "SELECT status FROM payment_entity WHERE id is not null;";
-        try {
-            val connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/app", "app", "pass");
-            val countStmt = connection.createStatement();
-            val result = countStmt.executeQuery(selectStatus);
-
-            if (result.next()) {
-                val status = result.getString("status");
-                return status;
-            }
-        } catch (SQLException ex) {
-            System.out.println("SQLException message:" + ex.getMessage());
-        }
-        return null;
-    }
-
-    public static String searchOperationStatusByCreditCard() {
-        val selectStatus = "SELECT status FROM credit_request_entity WHERE id is not null;";
-        try {
-            val connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/app", "app", "pass");
-            val countStmt = connection.createStatement();
-            val result = countStmt.executeQuery(selectStatus);
-
-            if (result.next()) {
-                val status = result.getString("status");
-                return status;
-            }
-        } catch (SQLException ex) {
-            System.out.println("SQLException message:" + ex.getMessage());
-        }
-        return null;
-    }
-
-    public static String searchOperationByOrderTableForDebitCard() {
-        val selectPaymentId = "SELECT payment_id FROM order_entity WHERE id is not null;";
-        try {
-            val connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/app", "app", "pass");
-            val countStmt = connection.createStatement();
-            val result = countStmt.executeQuery(selectPaymentId);
-
-            if (result.next()) {
-                val paymentId = result.getString("payment_id");
-                return paymentId;
-            }
-        } catch (SQLException ex) {
-            System.out.println("SQLException message:" + ex.getMessage());
-        }
-        return null;
-    }
-
-    public static String searchOperationByOrderTableForCreditCard() {
-        val selectCreditId = "SELECT credit_id FROM order_entity WHERE id is not null;";
-        try {
-            val connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/app", "app", "pass");
-            val countStmt = connection.createStatement();
-            val result = countStmt.executeQuery(selectCreditId);
-
-            if (result.next()) {
-                val creditId = result.getString("credit_id");
-                return creditId;
-            }
-        } catch (SQLException ex) {
-            System.out.println("SQLException message:" + ex.getMessage());
-        }
-        return null;
     }
 
 }

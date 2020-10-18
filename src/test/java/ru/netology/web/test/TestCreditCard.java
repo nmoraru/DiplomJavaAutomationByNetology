@@ -12,6 +12,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static ru.netology.web.data.DataGenerator.*;
+import static ru.netology.web.data.SQLHelper.*;
 
 public class TestCreditCard {
     TitlePage titlePage = open("http://localhost:8080", TitlePage.class);

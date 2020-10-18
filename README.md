@@ -48,6 +48,10 @@ spring.datasource.url=jdbc:mysql://localhost:3306/app
 spring.datasource.username=app
 spring.datasource.password=pass
 
+3. Задать значение переменной URL в классе data/SQLHelper.class
+
+`static String URL = "jdbc:mysql://localhost:3306/app";`
+
 #### Все команды выполняются в терминале проекта в IntelliJ IDEA
 
 1. Запустить docker-контейнер командой 
@@ -75,7 +79,7 @@ spring.datasource.password=pass
 
 version: '3'
 services:
-  postgresdb:
+  postgresql:
     image: postgres:latest
     ports:
       - '5432:5432'
@@ -88,9 +92,13 @@ services:
 
 spring.credit-gate.url=http://localhost:9999/credit
 spring.payment-gate.url=http://localhost:9999/payment
-spring.datasource.url=jdbc:postgresdb://localhost:5432/app
+spring.datasource.url=jdbc:postgresql://localhost:5432/app
 spring.datasource.username=app
 spring.datasource.password=pass
+
+3. Задать значение переменной URL в классе data/SQLHelper.class
+
+`static String URL = "jdbc:postgresql://localhost:5432/app";`
 
 
 #### Все команды выполняются в терминале проекта в IntelliJ IDEA
@@ -99,7 +107,7 @@ spring.datasource.password=pass
 `docker-compose up`
 
 2. Подключить БД командой 
-`docker-compose exec postgresdb psql -U app -d app -W`
+`docker-compose exec postgresql psql -U app -d app -W`
 Ввести пароль (указан в файле docker-compose.yml)
 
 3. Запустить SUT
