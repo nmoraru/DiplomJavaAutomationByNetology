@@ -65,9 +65,8 @@ spring.datasource.password=pass
 Для запуска SUT выполнить команду 
 `java -jar ./artifacts/aqa-shop.jar`
 
-4. Запустить симулятор банковских сервисов. Для этого необходимо:
- * перейти в раздел gate-simulator по команде `cd gate-simulator`
- * запустить симулятор сервисов командой `npm start`
+4. Запустить симулятор банковских сервисов:
+ `cd gate-simulator && npm start`
 
 5. Запустить тесты командой `gradlew clean test`
  
@@ -114,9 +113,8 @@ spring.datasource.password=pass
 Для запуска SUT выполнить команду 
 `java -jar ./artifacts/aqa-shop.jar`
 
-4. Запустить симулятор банковских сервисов. Для этого необходимо:
- * перейти в раздел gate-simulator по команде `cd gate-simulator`
- * запустить симулятор сервисов командой `npm start`
+4. Запустить симулятор банковских сервисов:
+ `cd gate-simulator && npm start`
 
 5. Запустить тесты командой `gradlew clean test`
  

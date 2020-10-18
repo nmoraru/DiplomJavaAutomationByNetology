@@ -642,7 +642,7 @@ public class DataGenerator {
     public static String generateValidCardYear() {
         Faker faker = new Faker(new Locale("ru"));
         Integer yearNow = LocalDate.now().getYear() % 100;
-        int year = faker.random().nextInt(yearNow, 99);
+        int year = faker.random().nextInt(yearNow, 25);
 
         if (year <= 9) {
             return "0" + year;
