@@ -8,15 +8,14 @@ branches:
 
 build: off  # будем использовать свой скрипт сборки
 
-install:
+build_script:
+  - -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker
   - docker-compose up &
   - sleep 20
   # запускаем SUT (& означает, что в фоновом режиме - не блокируем терминал для запуска тестов)
   - java -jar ./artifacts/aqa-shop.jar &
   - sleep 15
   - cd gate-simulator && npm start &
-  - - sleep 10
-
-build_script:
+  - sleep 10
   - chmod +x gradlew
   - ./gradlew test --info "-Dselenide.headless=true" # запускаем тесты в headless режиме, флаг --info позволяет выводить больше информации
