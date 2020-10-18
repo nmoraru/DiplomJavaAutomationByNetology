@@ -39,7 +39,7 @@ services:
       - MYSQL_DATABASE=app
       - MYSQL_USER=app
       - MYSQL_PASSWORD=pass
-</pre>>
+</pre>
 2. Состав application.properties:
 <pre>
 spring.credit-gate.url=http://localhost:9999/credit
@@ -47,7 +47,7 @@ spring.payment-gate.url=http://localhost:9999/payment
 spring.datasource.url=jdbc:mysql://localhost:3306/app
 spring.datasource.username=app
 spring.datasource.password=pass
-</pre>>
+</pre>
 3. Задать значение переменной URL в классе data/SQLHelper.class
 
 `static String URL = "jdbc:mysql://localhost:3306/app";`
@@ -87,7 +87,7 @@ services:
       - POSTGRES_DB=app
       - POSTGRES_USER=app
       - POSTGRES_PASSWORD=pass
-</pre>>
+</pre>
 2. Состав application.properties:
 <pre>
 spring.credit-gate.url=http://localhost:9999/credit
@@ -95,7 +95,7 @@ spring.payment-gate.url=http://localhost:9999/payment
 spring.datasource.url=jdbc:postgresql://localhost:5432/app
 spring.datasource.username=app
 spring.datasource.password=pass
-</pre>>
+</pre>
 3. Задать значение переменной URL в классе data/SQLHelper.class
 
 `static String URL = "jdbc:postgresql://localhost:5432/app";`
