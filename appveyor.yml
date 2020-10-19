@@ -8,7 +8,7 @@ branches:
 
 build: off  # будем использовать свой скрипт сборки
 install:
-  - choco install docker-compose
+  - install docker-compose
 
 build_script:
   - docker-compose up &
