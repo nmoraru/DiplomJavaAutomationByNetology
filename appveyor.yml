@@ -7,11 +7,11 @@ branches:
     - master  # ветка git
 
 build: off  # будем использовать свой скрипт сборки
-install:
-  - install docker-compose
 
 build_script:
-  - docker-compose up &
+  - ps: sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  - ps: sudo chmod +x /usr/local/bin/docker-compose
+  - ps: sudo docker-compose up -d
   - sleep 20
   # запускаем SUT (& означает, что в фоновом режиме - не блокируем терминал для запуска тестов)
   - java -jar ./artifacts/aqa-shop.jar &
