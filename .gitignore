@@ -1,5 +1,6 @@
 HELP.md
 .gradle
+.allure/
 build/
 data/
 gate-simulator/
