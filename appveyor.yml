@@ -19,4 +19,4 @@ build_script:
   - cd gate-simulator && npm start &
   - sleep 10
   - chmod +x gradlew
-  - ./gradlew test --info "-Dselenide.headless=true" # запускаем тесты в headless режиме, флаг --info позволяет выводить больше информации
+  - ./gradlew test --info -Dselenide.headless=true # запускаем тесты в headless режиме, флаг --info позволяет выводить больше информации
