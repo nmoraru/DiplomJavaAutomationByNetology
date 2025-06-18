@@ -2,7 +2,7 @@
 
 # Бронирование тура
 
-Тестирование бронирования тура в Марракеш
+Тестирование бронирования тура в Марракеш. Инструкция по локальному запуску тестов.
 
 ## Начало работы
 
@@ -16,7 +16,7 @@
 
 2. IntelliJ IDEA
 
-3. OpenJDK 11
+3. Java 21
 
 4. Docker 
 
@@ -25,76 +25,28 @@
 ### Установка и запуск сборки на MySQL
 #### Выполнить настройки:
 1. Состав docker-compose:
-<pre>
-services:
-  mysql:
-    image: mysql:8.0.33
-    ports:
-      - '3306:3306'
-    volumes:
-      - ./data:/var/lib/mysql
-    environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
-      MYSQL_DATABASE: 'app'
-      MYSQL_USER: 'app'
-      MYSQL_PASSWORD: 'pass'
-    platform: linux/amd64  # Для совместимости на Apple Silicon
-</pre>
+Оставить раскомментированным блок кода для MySQL. Для других БД закомментировать.
 2. Состав application.properties:
-<pre>
-spring.credit-gate.url=http://localhost:9999/credit
-spring.payment-gate.url=http://localhost:9999/payment
-spring.datasource.url=jdbc:mysql://localhost:3306/app
-spring.datasource.username=app
-spring.datasource.password=pass
-</pre>
+Оставить настройку spring.datasource.url для MySQL. Для других БД закомментировать.
 3. Задать значение переменной URL в классе data/SQLHelper.class
 
 `static String URL = "jdbc:mysql://localhost:3306/app";`
 
 #### Все команды выполняются в терминале проекта в IntelliJ IDEA
 
-1. Запустить docker-контейнер командой 
-`docker-compose up`
+Запустить в терминале скрипт (в корне проекта) одной из команд:
+`./run_tests.sh --headless` - для запуска тестов в "свернутом" режиме браузера.
+`./run_tests.sh` - для запуска тестов с открытием окон браузера.
 
-2. Подключить БД командой 
-`docker-compose exec mysql mysql -u app -p app -v`
-Ввести пароль (указан в файле docker-compose.yml)
-
-3. Запустить SUT
-Для запуска SUT выполнить команду 
-`java -jar ./artifacts/aqa-shop.jar`
-
-4. Запустить симулятор банковских сервисов:
- `cd gate-simulator && npm start`
-
-5. Запустить тесты командой `gradlew clean test` или `./gradlew clean test -Dselenide.headless=true`
- 
-6. Для повторного использования тестов необходимо перезапустить SUT 
+Если не хватает прав на выполнение скрипта, выполнить предварительно команду
+`chmod +x ./run_tests.sh`
 
 ### Установка и запуск сборки на PostgreSQL
 #### Выполнить настройки:
 1. Состав docker-compose:
-<pre>
-version: '3'
-services:
-  postgresql:
-    image: postgres:latest
-    ports:
-      - '5432:5432'
-    environment:
-      - POSTGRES_DB=app
-      - POSTGRES_USER=app
-      - POSTGRES_PASSWORD=pass
-</pre>
+Оставить раскомментированным блок кода для PostgreSQL. Для других БД закомментировать.
 2. Состав application.properties:
-<pre>
-spring.credit-gate.url=http://localhost:9999/credit
-spring.payment-gate.url=http://localhost:9999/payment
-spring.datasource.url=jdbc:postgresql://localhost:5432/app
-spring.datasource.username=app
-spring.datasource.password=pass
-</pre>
+Оставить настройку spring.datasource.url для PostgreSQL. Для других БД закомментировать.
 3. Задать значение переменной URL в классе data/SQLHelper.class
 
 `static String URL = "jdbc:postgresql://localhost:5432/app";`
@@ -102,26 +54,15 @@ spring.datasource.password=pass
 
 #### Все команды выполняются в терминале проекта в IntelliJ IDEA
 
-1. Запустить docker-контейнер командой 
-`docker-compose up`
+Запустить в терминале скрипт (в корне проекта) одной из команд:
+`./run_tests.sh --headless` - для запуска тестов в "свернутом" режиме браузера.
+`./run_tests.sh` - для запуска тестов с открытием окон браузера.
 
-2. Подключить БД командой 
-`docker-compose exec postgresql psql -U app -d app -W`
-Ввести пароль (указан в файле docker-compose.yml)
-
-3. Запустить SUT
-Для запуска SUT выполнить команду 
-`java -jar ./artifacts/aqa-shop.jar`
-
-4. Запустить симулятор банковских сервисов:
- `cd gate-simulator && npm start`
-
-5. Запустить тесты командой `gradlew clean test` или `./gradlew clean test -Dselenide.headless=true`
- 
-6. Для повторного использования тестов необходимо перезапустить SUT
+Если не хватает прав на выполнение скрипта, выполнить предварительно команду
+`chmod +x ./run_tests.sh`
 
 ## Лицензия
 
 Copyright [Альфа-Банк] 
 Лицензия Альфа-Банка на разработку информационных систем:
-https://alfabank.ru/f/3/about/licence_and_certificate/lic.pdf
+https://alfabank.servicecdn.ru/site-upload/d0/6a/1717/lic.pdf
