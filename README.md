@@ -1,5 +1,3 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/us68x2l2prt918lh?svg=true)](https://ci.appveyor.com/project/nmoraru/aqa-diplom)
-
 # Бронирование тура
 
 Тестирование бронирования тура в Марракеш. Инструкция по локальному запуску тестов.
