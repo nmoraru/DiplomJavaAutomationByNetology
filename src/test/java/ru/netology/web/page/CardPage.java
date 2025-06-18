@@ -5,6 +5,8 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.web.data.CardInfo;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -41,27 +43,27 @@ public class CardPage {
     }
 
     public void successfulPaymentMessage() {
-        $(byText("Операция одобрена Банком.")).waitUntil(Condition.visible, 15000);
+        $(byText("Операция одобрена Банком.")).shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void errorPaymentMessage() {
-        $(byText("Ошибка! Банк отказал в проведении операции.")).waitUntil(Condition.visible, 15000);
+        $(byText("Ошибка! Банк отказал в проведении операции.")).shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void errorMessageByFieldIncorrectFormat() {
-        $(byText("Неверный формат")).waitUntil(Condition.visible, 2000);
+        $(byText("Неверный формат")).shouldBe(Condition.visible, Duration.ofSeconds(2));
     }
 
     public void errorMessageByEmptyField() {
-        $(byText("Поле обязательно для заполнения")).waitUntil(Condition.visible, 2000);
+        $(byText("Поле обязательно для заполнения")).shouldBe(Condition.visible, Duration.ofSeconds(2));
     }
 
     public void errorMessageByIncorrectFormatMonthField() {
-        $(byText("Неверно указан срок действия карты")).waitUntil(Condition.visible, 2000);
+        $(byText("Неверно указан срок действия карты")).shouldBe(Condition.visible, Duration.ofSeconds(2));
     }
 
     public void errorMessageByOldYear() {
-        $(byText("Истёк срок действия карты")).waitUntil(Condition.visible, 2000);
+        $(byText("Истёк срок действия карты")).shouldBe(Condition.visible, Duration.ofSeconds(2));
     }
 
 }
