@@ -1,22 +1,30 @@
 plugins {
     id 'java'
-    id "io.freefair.lombok" version "5.0.1"
-    id 'io.qameta.allure' version '2.8.1'
+    id "io.freefair.lombok" version "8.6"
+    id 'io.qameta.allure' version '2.12.0'
 }
 
 group 'ru.netology'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 11
-compileJava.options.encoding = "UTF-8"
-compileTestJava.options.encoding = "UTF-8"
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+}
 
 allure {
-    autoconfigure = true
-    version = '2.13.0'   //LatestAllureVersion
-
-    useJUnit5 {
-        version = '2.13.0'    //LatestAllureVersion
+    version = '2.25.0'
+    adapter {
+        frameworks {
+            junit5 {
+                adapterVersion = '2.25.0'
+            }
+        }
     }
 }
 
@@ -25,19 +33,27 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.testng:testng:6.14.3'
-    implementation 'org.testng:testng:6.14.3'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.6.2'
-    testImplementation 'mysql:mysql-connector-java:8.0.19'
-    compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
-    testImplementation 'commons-dbutils:commons-dbutils:1.7'
+    // Тестирование
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
+    testImplementation 'org.testng:testng:7.8.0'
+    testImplementation 'io.qameta.allure:allure-junit5:2.25.0'
 
-    testImplementation 'com.codeborne:selenide:5.11.0'
-    testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.23'
-    implementation 'org.jetbrains:annotations:15.0'
-    testImplementation 'io.rest-assured:rest-assured:4.3.0'
-    testImplementation 'com.github.javafaker:javafaker:1.0.1'
-    testImplementation'io.qameta.allure:allure-selenide:2.13.0'
+    // Базы данных
+    implementation 'com.mysql:mysql-connector-j:8.3.0'
+    implementation 'org.postgresql:postgresql:42.7.1'
+    testImplementation 'commons-dbutils:commons-dbutils:1.8.1'
+
+    // UI-тестирование
+    testImplementation 'com.codeborne:selenide:7.0.4'
+    testImplementation 'org.slf4j:slf4j-simple:2.0.9'
+
+    // API-тестирование
+    testImplementation 'io.rest-assured:rest-assured:5.4.0'
+
+    // Вспомогательные
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
+    testImplementation 'io.qameta.allure:allure-selenide:2.25.0'
+    implementation 'org.jetbrains:annotations:24.1.0'
 }
 
 test {

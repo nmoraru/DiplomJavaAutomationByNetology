@@ -26,19 +26,19 @@
 #### Выполнить настройки:
 1. Состав docker-compose:
 <pre>
-version: '3'
 services:
   mysql:
-    image: mysql:8.0.19
+    image: mysql:8.0.33
     ports:
       - '3306:3306'
     volumes:
       - ./data:/var/lib/mysql
     environment:
-      - MYSQL_RANDOM_ROOT_PASSWORD=yes
-      - MYSQL_DATABASE=app
-      - MYSQL_USER=app
-      - MYSQL_PASSWORD=pass
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: 'app'
+      MYSQL_USER: 'app'
+      MYSQL_PASSWORD: 'pass'
+    platform: linux/amd64  # Для совместимости на Apple Silicon
 </pre>
 2. Состав application.properties:
 <pre>
@@ -68,7 +68,7 @@ spring.datasource.password=pass
 4. Запустить симулятор банковских сервисов:
  `cd gate-simulator && npm start`
 
-5. Запустить тесты командой `gradlew clean test`
+5. Запустить тесты командой `gradlew clean test` или `./gradlew clean test -Dselenide.headless=true`
  
 6. Для повторного использования тестов необходимо перезапустить SUT 
 
@@ -116,7 +116,7 @@ spring.datasource.password=pass
 4. Запустить симулятор банковских сервисов:
  `cd gate-simulator && npm start`
 
-5. Запустить тесты командой `gradlew clean test`
+5. Запустить тесты командой `gradlew clean test` или `./gradlew clean test -Dselenide.headless=true`
  
 6. Для повторного использования тестов необходимо перезапустить SUT
 

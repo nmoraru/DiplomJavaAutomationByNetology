@@ -9,8 +9,8 @@ import java.sql.SQLException;
 
 @Data
 public class SQLHelper {
-    static String URL = "jdbc:mysql://localhost:3306/app";
-    //static String URL = "jdbc:postgresql://localhost:5432/app";
+//    static String URL = "jdbc:mysql://localhost:3306/app";
+    static String URL = "jdbc:postgresql://localhost:5432/app";
     static String user = "app";
     static String password = "pass";
 

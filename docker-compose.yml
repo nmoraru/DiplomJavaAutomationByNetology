@@ -1,13 +1,26 @@
-version: '3'
+#services:
+#  mysql:
+#    image: mysql:8.0.33
+#    ports:
+#      - '3306:3306'
+#    volumes:
+#      - ./data:/var/lib/mysql # Персистентное хранилище
+#    environment:
+#      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+#      MYSQL_DATABASE: 'app'
+#      MYSQL_USER: 'app'
+#      MYSQL_PASSWORD: 'pass'
+#    platform: linux/amd64  # Для совместимости на Apple Silicon
+
 services:
-  mysql:
-    image: mysql:8.0.19
+  postgresql:
+    image: postgres:latest
     ports:
-      - '3306:3306'
+      - '5432:5432'
     volumes:
-      - ./data:/var/lib/mysql
+      - ./postgres_data:/var/lib/postgresql/data
     environment:
-      - MYSQL_RANDOM_ROOT_PASSWORD=yes
-      - MYSQL_DATABASE=app
-      - MYSQL_USER=app
-      - MYSQL_PASSWORD=pass
+      - POSTGRES_DB=app
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=pass
+    platform: linux/amd64
